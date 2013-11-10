@@ -34,8 +34,8 @@ class UserController extends BaseController {
 	public function register() {
 		if(Request::server('REQUEST_METHOD') == 'POST') {
 			$rules = array(
-				'username'			=> 'required',
-				'email'				=> 'required|email|unique',
+				'username'			=> 'required|unique:user',
+				'email'				=> 'required|email|unique:user',
 				'password'			=> 'required|min:4',
 				'confirmed_password'=> 'required|same:password'
 				);
