@@ -9,7 +9,7 @@
 	<div class='control-group' id="inputUsername">
 		{{ Form::label('username', 'Username', array('class' => 'control-label')) }}
 		<div class="controls">
-			{{ Form::text('username') }}
+			{{ Form::text('username', Input::get('username')) }}
 			@if($errors->has('username'))
 					<script>
 						$('#inputUsername').addClass('error');

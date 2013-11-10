@@ -34,7 +34,7 @@ class UserController extends BaseController {
 	public function register() {
 		if(Request::server('REQUEST_METHOD') == 'POST') {
 			$rules = array(
-				'username'			=> 'required|unique:user',
+				'username'			=> 'required',
 				'email'				=> 'required|email|unique:user',
 				'password'			=> 'required|min:4',
 				'confirmed_password'=> 'required|same:password'
@@ -49,7 +49,21 @@ class UserController extends BaseController {
 
 			$validator = Validator::make($userdata, $rules);
 			if($validator->fails()) {
-				return Redirect::route('register')->withErrors($validator);
+				$data = array(
+					'username'	=> Input::get('username')
+					);
+				return Redirect::route('register')
+					->withErrors($validator)
+					->withInput($data);
+			} else {
+				$user = new User;
+				$user->username = Input::get('username');
+				$user->password = Hash::make(Input::get('password'));
+				$user->email = Input::get('email');
+				$user->save();
+				$data['message'] = Lang::get('myapp.user_created_success');
+				return Redirect::to('/')
+					->with('flash', $data);
 			}
 		}
 		return View::make('partials.register');

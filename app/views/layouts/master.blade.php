@@ -9,7 +9,12 @@
 </head>
 <body>
 	<div class="container">
-		@include('partials.header')	
+		@include('partials.header')
+		<div class="row" id="message">
+			@if(isset($message))
+				{{ message }}
+			@endif
+		</div>	
 		<div class="content row">
 			@yield('content')	
 		</div> <!-- end of content -->
