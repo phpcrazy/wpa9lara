@@ -12,7 +12,7 @@
 */
 
 Route::get('/', array('before' => 'auth', function(){
-	return "Hi!";
+	return View::make('partials.main');
 }));
 
 Route::any('/login',array(
@@ -27,8 +27,9 @@ Route::get('logout', function(){
 
 Route::any('/register', array(
 	'as'		=> 'register',
+	'before'	=> 'csrf',
 	'uses'		=> 'UserController@register'
-	));
+));
 
 /*Route::post('/login', function(){
 	$userinfo = array(

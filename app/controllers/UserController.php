@@ -21,6 +21,7 @@ class UserController extends BaseController {
 				return Redirect::to('login')->withErrors($validator);	
 			} else {
 				if(Auth::attempt($userinfo)) {
+					Session::flash('success', Lang::get('myapp.login_success'));
 					return Redirect::to('/');
 				} else {
 					$data['auth_errors'] = 'You\'re login data is incorrect!';
@@ -61,9 +62,8 @@ class UserController extends BaseController {
 				$user->password = Hash::make(Input::get('password'));
 				$user->email = Input::get('email');
 				$user->save();
-				$data['message'] = Lang::get('myapp.user_created_success');
-				return Redirect::to('/')
-					->with('flash', $data);
+				Session::flash('success', Lang::get('myapp.user_created_success'));
+				return Redirect::to('/login');
 			}
 		}
 		return View::make('partials.register');

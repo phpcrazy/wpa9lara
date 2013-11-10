@@ -79,8 +79,10 @@ Route::filter('myfilter', function(){
 
 Route::filter('csrf', function()
 {
-	if (Session::token() != Input::get('_token'))
-	{
-		throw new Illuminate\Session\TokenMismatchException;
+	if(Request::server('REQUEST_METHOD') == 'POST') {
+		if (Session::token() != Input::get('_token'))
+		{
+			throw new Illuminate\Session\TokenMismatchException;
+		}	
 	}
 });
