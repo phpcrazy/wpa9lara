@@ -10,9 +10,9 @@
 <body>
 	<div class="container">
 		@include('partials.header')	
-		<div class="content">
+		<div class="content row">
 			@yield('content')	
-		</div>
+		</div> <!-- end of content -->
 		@include('partials.footer')
 	</div>
 </body>

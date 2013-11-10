@@ -30,6 +30,30 @@ class UserController extends BaseController {
 		}
 		return View::make("partials.login");		
 	}
+
+	public function register() {
+		if(Request::server('REQUEST_METHOD') == 'POST') {
+			$rules = array(
+				'username'			=> 'required',
+				'email'				=> 'required|email|unique',
+				'password'			=> 'required|min:4',
+				'confirmed_password'=> 'required|same:password'
+				);
+
+			$userdata = array(
+				'username'			=> Input::get('username'),
+				'email'				=> Input::get('email'),
+				'password'			=> Input::get('password'),
+				'confirmed_password'=> Input::get('confirmed_password')
+				);
+
+			$validator = Validator::make($userdata, $rules);
+			if($validator->fails()) {
+				return Redirect::route('register')->withErrors($validator);
+			}
+		}
+		return View::make('partials.register');
+	}
 }
 
  ?>

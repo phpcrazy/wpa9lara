@@ -25,6 +25,11 @@ Route::get('logout', function(){
 	return Redirect::to('/');
 });
 
+Route::any('/register', array(
+	'as'		=> 'register',
+	'uses'		=> 'UserController@register'
+	));
+
 /*Route::post('/login', function(){
 	$userinfo = array(
 		'username'	=> Input::get('username'),
@@ -41,13 +46,3 @@ Route::get('logout', function(){
 });
 */
 
-Route::get('/register', function(){
-	return View::make('partials.register');
-});
-
-Route::post('/register', array(
-		'as'		=> 'register',
-		'before'	=> array('csrf', 'auth'),
-		function() {
-			return "Hello Register";	
-		}));
